@@ -26,7 +26,7 @@ Route::post('user/update', 'UserInfoController@update');//修改用户
 
 Route::post('userscore/add', 'UserScoreController@add');//新增用户分数
 Route::get('userscore/getall', 'UserScoreController@getallscore');//获得所有排行榜
-Route::get('userscore/getscorebydate', 'UserScoreController@getscorebydate');//获取当前分数排行榜
+Route::get('userscore/getscorebydate', 'UserScoreController@getscorebydate');//获取当天分数排行榜
 Route::get('userscore/getuserstage/{openid}', 'UserScoreController@getscorebyopenid');//获取某一个用户当天分数
 Route::get('userscore/getfriendstage/{fromopenid}', 'UserScoreController@getscorebyfromopenid');//获取某一个用户的好友排行榜
 
