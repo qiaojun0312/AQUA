@@ -19,7 +19,7 @@ class UserWinnerController extends Controller
         //昨天日期
         $created_at= date("Y-m-d",strtotime("-1 day"));
         //$created_at= date("Y-m-d");
-        $users_score = DB::select("select uswinner.id,fromuser.openid,fromuser.name,fromuser.nickname,fromuser.phone,fromuser.headimgurl,
+        $users_score = DB::select("select uswinner.id,fromuser.openid,fromuser.name,fromuser.nickname,fromuser.phone,fromuser.headimgurl,fromuser.address,
                 uscore.score,uscore.stage,uswinner.created_at,uswinner.zjtype
                     from  user_winners as uswinner 
                     left join user_scores as uscore on  uswinner.openid=uscore.openid
@@ -32,7 +32,7 @@ class UserWinnerController extends Controller
     //获取所有中奖名单
     public function getall()
     {
-        $users_score = DB::select("select uswinner.id,fromuser.openid,fromuser.name,fromuser.nickname,fromuser.phone,fromuser.headimgurl,
+        $users_score = DB::select("select uswinner.id,fromuser.openid,fromuser.name,fromuser.nickname,fromuser.phone,fromuser.headimgurl,fromuser.address,
                 uscore.score,uscore.stage,uswinner.created_at,uswinner.zjtype
                     from  user_winners as uswinner 
                     left join user_scores as uscore on  uswinner.openid=uscore.openid
@@ -51,8 +51,7 @@ class UserWinnerController extends Controller
                 $created_at= date("Y-m-d");
 
                 //昨天分数排行榜
-                $users_score = DB::select("select uscore.id,fromuser.openid,fromuser.name,fromuser.nickname,fromuser.phone,fromuser.headimgurl,
-                        uscore.score,uscore.stage
+                $users_score = DB::select("select uscore.id,fromuser.openid
                             from user_scores as uscore
                             left join user_infos as fromuser on uscore.openid =fromuser.openid
                             where uscore.created_at like '".$created_at."%' and fromuser.isflag=0  order by uscore.score desc ");

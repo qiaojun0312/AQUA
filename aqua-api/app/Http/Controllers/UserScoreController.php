@@ -16,7 +16,7 @@ class UserScoreController extends Controller
     //获得所有分数排行榜
     public function getallscore()
     {
-        $users_score = DB::select("select uscore.id,fromuser.from_openid,fromuser.openid,fromuser.name,fromuser.nickname,fromuser.phone,fromuser.headimgurl,
+        $users_score = DB::select("select uscore.id,fromuser.from_openid,fromuser.openid,fromuser.name,fromuser.nickname,fromuser.phone,fromuser.headimgurl,fromuser.address,
                 uscore.score,uscore.stage,uscore.created_at
                 from user_scores as uscore
                 left join user_infos as fromuser on uscore.openid =fromuser.openid 
@@ -29,7 +29,7 @@ class UserScoreController extends Controller
     {
         $created_at= date("Y-m-d");
 
-        $users_score = DB::select("select uscore.id,fromuser.from_openid,fromuser.openid,fromuser.name,fromuser.nickname,fromuser.phone,fromuser.headimgurl,uscore.score,uscore.stage,uscore.created_at
+        $users_score = DB::select("select uscore.id,fromuser.from_openid,fromuser.openid,fromuser.name,fromuser.nickname,fromuser.phone,fromuser.headimgurl,fromuser.address,uscore.score,uscore.stage,uscore.created_at
                     from user_scores as uscore 
                     left join user_infos as fromuser on uscore.openid =fromuser.openid 
                     where uscore.created_at like '".$created_at."%' order by uscore.score desc ");
@@ -41,7 +41,7 @@ class UserScoreController extends Controller
     {
         $created_at= date("Y-m-d");
 
-        $users_score = DB::select("select uscore.id,fromuser.from_openid,fromuser.openid,fromuser.name,fromuser.nickname,fromuser.phone,fromuser.headimgurl,uscore.score,uscore.stage,uscore.created_at
+        $users_score = DB::select("select uscore.id,fromuser.from_openid,fromuser.openid,fromuser.name,fromuser.nickname,fromuser.phone,fromuser.headimgurl,fromuser.address,uscore.score,uscore.stage,uscore.created_at
                 from user_scores as uscore 
                 left join user_infos as fromuser on uscore.openid =fromuser.openid 
                 where uscore.openid ='".$openid."' and uscore.created_at like '".$created_at."%'");
@@ -51,7 +51,7 @@ class UserScoreController extends Controller
     //获取某一个用户的好友排行榜
     public function getscorebyfromopenid($fromopenid)
     {
-        $users_score = DB::select("select uscore.id,fromuser.from_openid,fromuser.openid,fromuser.name,fromuser.nickname,fromuser.phone,fromuser.headimgurl,uscore.score,uscore.stage,uscore.created_at
+        $users_score = DB::select("select uscore.id,fromuser.from_openid,fromuser.openid,fromuser.name,fromuser.nickname,fromuser.phone,fromuser.headimgurl,fromuser.address,uscore.score,uscore.stage,uscore.created_at
                 from user_scores as uscore 
                 left join user_infos as fromuser on uscore.openid =fromuser.openid 
                 where fromuser.from_openid ='".$fromopenid."' order by uscore.score desc");
@@ -109,7 +109,7 @@ class UserScoreController extends Controller
     {
         $users_score = DB::select(
             "select scoreuser.* from ( 
-                    select uscore.id,fromuser.from_openid,fromuser.openid,fromuser.name,fromuser.nickname,fromuser.phone,fromuser.headimgurl,
+                    select uscore.id,fromuser.from_openid,fromuser.openid,fromuser.name,fromuser.nickname,fromuser.phone,fromuser.headimgurl,fromuser.address,
                 uscore.score,uscore.stage,uscore.created_at
                 from user_scores as uscore
                 left join user_infos as fromuser on uscore.openid =fromuser.openid 

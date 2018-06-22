@@ -16,6 +16,7 @@
         <th>头像</th>
         <th>姓名</th>
         <th>电话</th>
+        <th>地址</th>
         <th>分数</th>
         <th>等级</th>
         <th>中奖类型</th>
@@ -29,6 +30,7 @@
         <td><img width="32" height="32" src="{{ $userinfo->headimgurl }}"/></td>
         <td>{{ $userinfo->name }}</td>
         <td>{{ $userinfo->phone }}</td>
+        <td>{{ $userinfo->address }}</td>
         <td>{{ $userinfo->score }}</td>
         <td>{{ $userinfo->stage }}</td>
         <td>{{ $userinfo->zjtype }}</td>
