@@ -182,6 +182,11 @@ return [
    */
         Overtrue\LaravelWechat\ServiceProvider::class,
 
+
+        /**
+         * CORS
+         */
+        Barryvdh\Cors\ServiceProvider::class,
     ],
 
     /*
@@ -235,6 +240,7 @@ return [
       * easywechat
       */
         'Wechat' => Overtrue\LaravelWechat\Facade::class,
+
     ],
 
 ];
