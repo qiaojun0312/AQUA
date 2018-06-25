@@ -17,17 +17,28 @@ class UserWinnerController extends Controller
     public function getscoretop10()
     {
         //昨天日期
-        $created_at= date("Y-m-d",strtotime("-1 day"));
+        //$created_at= date("Y-m-d",strtotime("-1 day"));
         //$created_at= date("Y-m-d");
-        $users_score = DB::select("select uswinner.id,fromuser.openid,fromuser.name,fromuser.nickname,fromuser.phone,fromuser.headimgurl,fromuser.address,
-                uscore.score,uscore.stage,uswinner.created_at,uswinner.zjtype
+        $users_winner = DB::select("select uswinner.id,fromuser.openid,fromuser.name,fromuser.nickname,fromuser.phone,fromuser.headimgurl,fromuser.address,
+                uscore.score,uscore.stage,uswinner.zjtype,DATE_FORMAT(uswinner.created_at, \"%Y-%m-%d\") as created_at
                     from  user_winners as uswinner 
                     left join user_scores as uscore on  uswinner.openid=uscore.openid
                     left join user_infos as fromuser on uswinner.openid =fromuser.openid
-                    where uswinner.created_at like '".$created_at."%'  group by fromuser.openid order by uscore.score desc ");
+                    GROUP BY uswinner.openid,DATE_FORMAT(uswinner.created_at, \"%Y-%m-%d\")
+                    order by uscore.score,DATE_FORMAT(uswinner.created_at, \"%Y-%m-%d\") desc");
 
-        return json_encode($users_score);
+//        $arrayDate= array();
+//        foreach ($users_winner as $winneritem)
+//        {
+//            if(!array_indx($arrayDate,$winneritem->created_at))
+//            {
+//                array_push($arrayDate,$winneritem->created_at);
+//            }
+//        }
+
+        return json_encode($users_winner);
     }
+
 
     //获取所有中奖名单
     public function getall()
