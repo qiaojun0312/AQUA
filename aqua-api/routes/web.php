@@ -31,7 +31,9 @@ Route::get('userscore/getuserstage/{openid}', 'UserScoreController@getscorebyope
 Route::get('userscore/getfriendstage/{fromopenid}', 'UserScoreController@getscorebyfromopenid');//获取某一个用户的好友排行榜
 
 
-Route::get('userscore/view-all', 'UserScoreController@getallscoreforview');//获得所有排行榜视图
+Route::get('userscore/view-all', 'UserScoreController@getallscoreforview');//查看所用用户积分
+Route::get('userscore/delete/{userscoreid}', 'UserScoreController@destory');//删除用户积分
+Route::get('userscore/deleteuser/{openid}', 'UserScoreController@destoryuser');//删除用户
 
 
 Route::get('userwinner/top10', 'UserWinnerController@getscoretop10');//获每天中奖名单

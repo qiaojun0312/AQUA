@@ -5,7 +5,31 @@
     <title>All User List</title>
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script src="https://www.shaketowin.net/assets/global/plugins/bower_components/jquery/dist/jquery.min.js"></script>
 
+    <script>
+        function deleteScroe(userscoreid) {
+            $.ajax({
+                method: 'GET',
+                url: '/userscore/delete/'+userscoreid,
+                data: {},
+                success: function(data, status, xhr){
+                    window.location.href =window.location.href;
+                    console.log(data);
+                }
+            });
+        }
+        function deleteUser(openid) {
+            $.ajax({
+                method: 'GET',
+                url: '/userscore/deleteuser/'+openid,
+                data: {},
+                success: function(data, status, xhr){
+                    window.location.href =window.location.href;
+                }
+            });
+        }
+    </script>
 </head>
 <body>
 <table class="table table-hover">
@@ -21,6 +45,7 @@
         <th>分数</th>
         <th>等级</th>
         <th>游戏时间</th>
+        <th>操作</th>
     </tr>
     @foreach ($userscores as $userinfo)
     <tr>
@@ -35,6 +60,10 @@
         <td>{{ $userinfo->score }}</td>
         <td>{{ $userinfo->stage }}</td>
         <td>{{ $userinfo->created_at }}</td>
+        <td>
+            <a href="javascript:void('0');" onclick="deleteScroe({{ $userinfo->id}})">删除分数</a><br/>
+            <a href="javascript:void('0');" onclick="deleteUser('{{$userinfo->openid}}')">删除用户及分数及中奖信息</a>
+        </td>
     </tr>
     @endforeach
 

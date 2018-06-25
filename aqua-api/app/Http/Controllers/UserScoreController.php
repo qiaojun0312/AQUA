@@ -117,6 +117,26 @@ class UserScoreController extends Controller
 
         return view('all-list', ["userscores" => $users_score]);
     }
-
+    public function destory($userscoreid)
+    {
+        DB::table('user_scores')->where('id', '=', $userscoreid)->delete();
+        return 1;
+    }
+    public function destoryuser($openid)
+    {
+        DB::beginTransaction();
+        try
+        {
+            DB::table('user_winners')->where('openid', '=', $openid)->delete();
+            DB::table('user_scores')->where('openid', '=', $openid)->delete();
+            DB::table('user_infos')->where('openid', '=', $openid)->delete();
+            DB::commit();
+            return 1;
+        }catch (Exception $ex)
+        {
+            DB::rollback();
+            throw $ex;
+        }
+    }
 
 }
