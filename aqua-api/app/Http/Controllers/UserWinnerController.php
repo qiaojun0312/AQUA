@@ -72,10 +72,6 @@ class UserWinnerController extends Controller
                     $i++;
                 }
 
-                //从剩下的数组中随机产生5个中奖用户
-                $arrayAfter5=array_rand($arrayOther,5);
-
-
                 //新增排名前5的中奖用户
                 foreach ($arrayTop5 as $arrayTop5item)
                 {
@@ -93,23 +89,30 @@ class UserWinnerController extends Controller
                         $user[0]->save();
                     }
                 }
-                //新增随机产生的5名用户
-                foreach ($arrayAfter5 as $arrayAfter5item)
+                if($i>4)
                 {
-                    //新增
-                    $UserWinner = new UserWinner();
-                    $UserWinner->openid = $arrayOther[$arrayAfter5item];
-                    $UserWinner->zjtype = 'random';
+                    //从剩下的数组中随机产生5个中奖用户
+                    $arrayAfter5=array_rand($arrayOther,5);
 
-                    $UserWinner->save();
+                    //新增随机产生的5名用户
+                    foreach ($arrayAfter5 as $arrayAfter5item)
+                    {
+                        //新增
+                        $UserWinner = new UserWinner();
+                        $UserWinner->openid = $arrayOther[$arrayAfter5item];
+                        $UserWinner->zjtype = 'random';
 
-                    //修改用户是否中奖标示
-                    $user = UserInfo::where('openid', $UserWinner->openid)->get();
-                    if($user->count()) {
-                        $user[0]->isflag = 1;
-                        $user[0]->save();
+                        $UserWinner->save();
+
+                        //修改用户是否中奖标示
+                        $user = UserInfo::where('openid', $UserWinner->openid)->get();
+                        if($user->count()) {
+                            $user[0]->isflag = 1;
+                            $user[0]->save();
+                        }
                     }
                 }
+
             DB::commit();
             echo "执行成功！";
         }catch (Exception $ex)
