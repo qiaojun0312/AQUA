@@ -25,7 +25,7 @@ class UserWinnerController extends Controller
                     left join user_scores as uscore on  uswinner.openid=uscore.openid
                     left join user_infos as fromuser on uswinner.openid =fromuser.openid
                     GROUP BY uswinner.openid,DATE_FORMAT(uswinner.created_at, \"%Y-%m-%d\")
-                    order by uscore.score,DATE_FORMAT(uswinner.created_at, \"%Y-%m-%d\") desc");
+                    order by DATE_FORMAT(uswinner.created_at, \"%Y-%m-%d\"),uscore.score desc");
 
 //        $arrayDate= array();
 //        foreach ($users_winner as $winneritem)
