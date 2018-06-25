@@ -36,31 +36,63 @@ class UserScoreController extends Controller
 
         return json_encode($users_score);
     }
-    //获取某一个用户当天分数
-    public function getscorebyopenid($openid)
-    {
-        $created_at= date("Y-m-d");
 
-        $users_score = DB::select("select uscore.id,uscore.score,uscore.stage,uscore.created_at
-                from user_scores as uscore 
-                left join user_infos as fromuser on uscore.openid =fromuser.openid 
-                where uscore.openid ='".$openid."' and uscore.created_at like '".$created_at."%'");
-
-        return json_encode($users_score);
-    }
     //获取某一个用户的好友排行榜
     public function getscorebyfromopenid($fromopenid)
     {
         $created_at= date("Y-m-d");
 
-        $users_score = DB::select("
-      select scoreuser.* from ( 
-                select uscore.id,fromuser.from_openid,fromuser.openid,fromuser.name,fromuser.nickname,fromuser.phone,fromuser.headimgurl,fromuser.address,uscore.score,uscore.stage,uscore.created_at
+        //用户自己的分数
+        $users_score = DB::select("select uscore.id,fromuser.nickname,uscore.score,uscore.stage,uscore.created_at
                 from user_scores as uscore 
                 left join user_infos as fromuser on uscore.openid =fromuser.openid 
-                where fromuser.from_openid ='".$fromopenid."' and uscore.created_at like '".$created_at."%' order by uscore.score desc  ) as scoreuser limit 3");
+                where uscore.openid ='".$fromopenid."' and uscore.created_at like '".$created_at."%'");
 
-        return json_encode($users_score);
+        //好友分数
+        $users_friendscore = DB::select("
+                select uscore.id,fromuser.nickname,uscore.score,uscore.stage,uscore.created_at
+                from user_scores as uscore 
+                left join user_infos as fromuser on uscore.openid =fromuser.openid 
+                where fromuser.from_openid ='".$fromopenid."' and uscore.created_at like '".$created_at."%' order by uscore.score desc");
+
+        $arrayscore = array();
+        //自己的分数
+        foreach ($users_score as $scores)
+        {
+            array_push($arrayscore,
+                                    array(
+                                        "id" => $scores->id,
+                                        "nickname" => $scores->nickname,
+                                        "score" => $scores->score,
+                                        "stage" => $scores->stage,
+                                        "created_at"=>$scores->created_at,
+                                    )
+            );
+        }
+
+        //好友分数
+        $m=0;
+        foreach ($users_friendscore as $friendscores)
+        {
+            if($m >2)
+            {
+                break;
+            }else
+            {
+                array_push($arrayscore,
+                    array(
+                        "id" => $friendscores->id,
+                        "nickname" => $friendscores->nickname,
+                        "score" => $friendscores->score,
+                        "stage" => $friendscores->stage,
+                        "created_at"=>$friendscores->created_at,
+                    )
+                );
+            }
+            $m++;
+        }
+
+        return json_encode($arrayscore);
     }
 
     //新增记录
