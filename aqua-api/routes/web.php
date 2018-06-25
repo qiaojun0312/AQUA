@@ -39,3 +39,6 @@ Route::get('userscore/deleteuser/{openid}', 'UserScoreController@destoryuser');/
 Route::get('userwinner/top10', 'UserWinnerController@getscoretop10');//获每天中奖名单
 Route::get('userwinner/view-all', 'UserWinnerController@getall');//获得所有中奖名单
 Route::get('userwinner/generate', 'UserWinnerController@generatetop10');//生成中奖名单
+
+
+Route::get('userwinner/delete/{userwinnerid}', 'UserWinnerController@destory');//删除用户中奖

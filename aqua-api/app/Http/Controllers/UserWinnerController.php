@@ -41,6 +41,14 @@ class UserWinnerController extends Controller
 
         return view('all-winner-list', ["userwinner" => $users_score]);
     }
+
+
+    public function destory($userwinnerid)
+    {
+        DB::table('user_winners')->where('id', '=', $userwinnerid)->delete();
+        return 1;
+    }
+
     //生成中奖名单
     public function generatetop10()
     {
