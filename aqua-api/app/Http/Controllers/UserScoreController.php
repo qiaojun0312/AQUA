@@ -41,7 +41,7 @@ class UserScoreController extends Controller
     {
         $created_at= date("Y-m-d");
 
-        $users_score = DB::select("select uscore.id,fromuser.from_openid,fromuser.openid,fromuser.name,fromuser.nickname,fromuser.phone,fromuser.headimgurl,fromuser.address,uscore.score,uscore.stage,uscore.created_at
+        $users_score = DB::select("select uscore.id,uscore.score,uscore.stage,uscore.created_at
                 from user_scores as uscore 
                 left join user_infos as fromuser on uscore.openid =fromuser.openid 
                 where uscore.openid ='".$openid."' and uscore.created_at like '".$created_at."%'");
