@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>All User List</title>
+    <title>中奖信息</title>
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <script src="https://www.shaketowin.net/assets/global/plugins/bower_components/jquery/dist/jquery.min.js"></script>
@@ -22,6 +22,7 @@
     </script>
 </head>
 <body>
+<h1>中奖信息</h1>
 <table class="table table-hover">
     <tr>
         <th>ID</th>
