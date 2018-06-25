@@ -51,10 +51,12 @@ class UserScoreController extends Controller
     //获取某一个用户的好友排行榜
     public function getscorebyfromopenid($fromopenid)
     {
-        $users_score = DB::select("select uscore.id,fromuser.from_openid,fromuser.openid,fromuser.name,fromuser.nickname,fromuser.phone,fromuser.headimgurl,fromuser.address,uscore.score,uscore.stage,uscore.created_at
+        $users_score = DB::select("
+      select scoreuser.* from ( 
+                select uscore.id,fromuser.from_openid,fromuser.openid,fromuser.name,fromuser.nickname,fromuser.phone,fromuser.headimgurl,fromuser.address,uscore.score,uscore.stage,uscore.created_at
                 from user_scores as uscore 
                 left join user_infos as fromuser on uscore.openid =fromuser.openid 
-                where fromuser.from_openid ='".$fromopenid."' order by uscore.score desc");
+                where fromuser.from_openid ='".$fromopenid."' order by uscore.score desc  ) as scoreuser limit 3");
 
         return json_encode($users_score);
     }
