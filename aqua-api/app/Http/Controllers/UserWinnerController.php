@@ -111,7 +111,12 @@ class UserWinnerController extends Controller
                 if($i>4)
                 {
                     //从剩下的数组中随机产生5个中奖用户
-                    $arrayAfter5=array_rand($arrayOther,5);
+                    $number=5;
+                    if(count($arrayOther)<5)
+                    {
+                        $number =count($arrayOther);
+                    }
+                    $arrayAfter5=array_rand($arrayOther,$number);
 
                     //新增随机产生的5名用户
                     foreach ($arrayAfter5 as $arrayAfter5item)
