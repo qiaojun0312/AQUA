@@ -145,7 +145,7 @@ class UserScoreController extends Controller
     {
         $users_score = DB::select(
             "select scoreuser.* from ( 
-                    select uscore.id,fromuser.from_openid,fromuser.openid,fromuser.name,fromuser.nickname,fromuser.phone,fromuser.headimgurl,fromuser.address,
+                    select uscore.id,fromuser.from_openid,fromuser.openid,fromuser.name,fromuser.nickname,fromuser.phone,fromuser.headimgurl,fromuser.address,fromuser.isflag,
                 uscore.score,uscore.stage,uscore.created_at
                 from user_scores as uscore
                 left join user_infos as fromuser on uscore.openid =fromuser.openid 

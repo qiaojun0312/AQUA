@@ -46,6 +46,7 @@
         <th>分数</th>
         <th>等级</th>
         <th>游戏时间</th>
+        <th>是否中奖</th>
         <th>操作</th>
     </tr>
     @foreach ($userscores as $userinfo)
@@ -61,6 +62,7 @@
         <td>{{ $userinfo->score }}</td>
         <td>{{ $userinfo->stage }}</td>
         <td>{{ $userinfo->created_at }}</td>
+        <td>{{ $userinfo->isflag }}</td>
         <td>
             <a href="javascript:void('0');" onclick="deleteScroe({{ $userinfo->id}})">删除分数</a><br/>
             <a href="javascript:void('0');" onclick="deleteUser('{{$userinfo->openid}}')">删除用户及分数及中奖信息</a>
