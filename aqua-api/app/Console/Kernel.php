@@ -115,7 +115,8 @@ class Kernel extends ConsoleKernel
                 Log::info("当天已经执行过了！");
             }
 
-        })->dailyAt('23:55');
+        })->everyMinute();
+//        dailyAt('23:55');
     }
 
     /**
