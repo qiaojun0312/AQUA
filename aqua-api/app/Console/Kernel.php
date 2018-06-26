@@ -33,8 +33,8 @@ class Kernel extends ConsoleKernel
 
 
             //当前日期
-            //$created_at= date("Y-m-d");
-            $created_at= date("Y-m-d",strtotime("-1 day"));
+            $created_at= date("Y-m-d");
+            //$created_at= date("Y-m-d",strtotime("-1 day"));
             $users_winner = DB::select("select *
                             from user_winners as uswinner
                             where uswinner.created_at like '".$created_at."%'");
