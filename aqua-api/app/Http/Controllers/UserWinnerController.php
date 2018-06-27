@@ -48,7 +48,7 @@ class UserWinnerController extends Controller
                     from  user_winners as uswinner 
                     left join user_scores as uscore on  uswinner.openid=uscore.openid
                     left join user_infos as fromuser on uswinner.openid =fromuser.openid
-                    group by fromuser.openid order by uswinner.id ");
+                    group by uswinner.created_at,fromuser.openid order by uswinner.id ");
 
         return view('all-winner-list', ["userwinner" => $users_score]);
     }
