@@ -12,7 +12,9 @@ return [
      |
      */
     'supportsCredentials' => false,
-    'allowedOrigins' => ['*'],
+//    'allowedOrigins' => ['*'],
+    'allowedOrigins' => ['http://guerlain2.wcampaign.cn'],
+//    'allowedOrigins' => ['http://guerlain.wcampaign.cn'],
     'allowedHeaders' => ['*'],
     'allowedMethods' => ['*'],
     'exposedHeaders' => [],

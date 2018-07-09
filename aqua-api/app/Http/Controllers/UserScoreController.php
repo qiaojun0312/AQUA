@@ -6,6 +6,7 @@ use App\Models\UserScore;
 use Illuminate\Http\Request;
 use App\Models\UserInfo;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class UserScoreController extends Controller
 {
@@ -104,6 +105,7 @@ class UserScoreController extends Controller
         $user = UserScore::where('openid', $openid)->where('created_at', 'like', $created_at.'%')->get();
         //return json_encode($user);
 
+        Log::info('==='.$openid.'====score update, search: '.json_encode($user));
         if ($user!=null && $user->count()) {
 
             $curscore=$request->score;
@@ -112,30 +114,46 @@ class UserScoreController extends Controller
             $curstage=$request->stage;
             $oldstage=$user[0]->stage;
 
+            Log::info('==='.$openid.'====score update, new: '.$curscore.'|'.$curstage.', old: '.$oldscroe.'|'.$oldstage);
             //如果当前分数大于数据库分数就修改，否则不修改
-            if($curscore > $oldscroe && $curstage >$oldstage)
+            if($curscore > $oldscroe)
             {
-                $user[0]->score = $curscore;
-                $user[0]->stage = $curstage;
+                if($curscore < 16701)
+                {
+                    $user[0]->score = $curscore;
+                    $user[0]->stage = $curstage;
 
-                $user[0]->save();
-                return json_encode(2); //修改成功
+                    $user[0]->save();
+                    return json_encode(2); //修改成功
+                }else
+                {
+                    return json_encode(9);
+                }
             }else
             {
+                Log::info('==='.$openid.'====cheating==');
                 return json_encode(3); //未修改，当前分数小于数据库分数
             }
 
         }else
         {
-            //新增
-            $User = new UserScore;
-            $User->openid = $openid;
-            $User->score = $request->score;
-            $User->stage = $request->stage;
 
-            $User->save();
+            if($request->score < 16701)
+            {
+                //新增
+                $User = new UserScore;
+                $User->openid = $openid;
+                $User->score = $request->score;
+                $User->stage = $request->stage;
 
-            return json_encode(1);//新增成功
+                $User->save();
+
+                return json_encode(1);//新增成功
+            }else
+            {
+                Log::info('==='.$openid.'====cheating==');
+                return json_encode(9);
+            }
         }
 
     }
